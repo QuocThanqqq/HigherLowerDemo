@@ -23,16 +23,6 @@
         <div id="unity-build-title">Bricks Breaker</div>
       </div>
     </div>
-
-
- <script>
-      // Xóa window.ethereum nếu tồn tại để tránh xung đột
-      if (typeof window.ethereum !== 'undefined') {
-        console.warn("Ethereum detected. Removing the property to prevent conflicts.");
-        delete window.ethereum;
-      }
-    </script>
-
     <script>
 
       var container = document.querySelector("#unity-container");
@@ -67,15 +57,15 @@
       }
 
       var buildUrl = "Build";
-      var loaderUrl = buildUrl + "/brick.loader.js";
+      var loaderUrl = buildUrl + "/BrickBall.loader.js";
       var config = {
-        dataUrl: buildUrl + "/brick.data",
-        frameworkUrl: buildUrl + "/brick.framework.js",
-        codeUrl: buildUrl + "/brick.wasm",
+        dataUrl: buildUrl + "/BrickBall.data",
+        frameworkUrl: buildUrl + "/BrickBall.framework.js",
+        codeUrl: buildUrl + "/BrickBall.wasm",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "DefaultCompany",
         productName: "Bricks Breaker",
-        productVersion: "1.0",
+        productVersion: "1.5.1",
         showBanner: unityShowBanner,
       };
 
