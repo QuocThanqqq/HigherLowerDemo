@@ -6,6 +6,41 @@
     <title>Unity WebGL Player | Test</title>
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
+    <script>
+      // Chèn mã JavaScript Telegram WebApp ở đây
+      function initTelegramWebApp() {
+        if (typeof Telegram !== 'undefined' && Telegram.WebApp) {
+          // Khởi tạo Telegram WebApp
+          Telegram.WebApp.init();
+          
+          // Lấy thông tin người dùng
+          const user = Telegram.WebApp.user;
+          console.log("User ID: " + user.id);
+          console.log("First Name: " + user.first_name);
+          console.log("Last Name: " + user.last_name);
+          console.log("Username: " + user.username);
+          console.log("Language Code: " + user.language_code);
+
+          // Gửi thông tin người dùng đến Unity qua Unity.call
+          sendUserInfoToUnity(user);
+        } else {
+          console.log("Telegram WebApp không khả dụng.");
+        }
+      }
+
+      // Hàm gửi thông tin người dùng đến Unity
+      function sendUserInfoToUnity(user) {
+        if (window.Unity) {
+          Unity.call("ReceiveUserInfo", JSON.stringify({
+            id: user.id,
+            first_name: user.first_name,
+            last_name: user.last_name,
+            username: user.username,
+            language_code: user.language_code
+          }));
+        }
+      }
+    </script>
   </head>
   <body>
     <div id="unity-container" class="unity-desktop">
@@ -16,16 +51,13 @@
           <div id="unity-progress-bar-full"></div>
         </div>
       </div>
-      <div id="unity-warning"> </div>
+      <div id="unity-warning"></div>
       <div id="unity-footer">
         <div id="unity-webgl-logo"></div>
         <div id="unity-fullscreen-button"></div>
         <div id="unity-build-title">Test</div>
       </div>
     </div>
-
-    <!-- Thêm script vào đây -->
-    <script src="WebGL/telegramWebApp.js"></script>
 
     <script>
       var container = document.querySelector("#unity-container");
@@ -35,6 +67,7 @@
       var fullscreenButton = document.querySelector("#unity-fullscreen-button");
       var warningBanner = document.querySelector("#unity-warning");
 
+      // Chạy mã WebApp Telegram sau khi Unity đã sẵn sàng
       function unityShowBanner(msg, type) {
         function updateBannerVisibility() {
           warningBanner.style.display = warningBanner.children.length ? 'block' : 'none';
@@ -54,11 +87,11 @@
       }
 
       var buildUrl = "Build";
-      var loaderUrl = buildUrl + "/Build.loader.js";
+      var loaderUrl = buildUrl + "/BrickBall.loader.js";
       var config = {
-        dataUrl: buildUrl + "/Build.data",
-        frameworkUrl: buildUrl + "/Build.framework.js",
-        codeUrl: buildUrl + "/Build.wasm",
+        dataUrl: buildUrl + "/BrickBall.data",
+        frameworkUrl: buildUrl + "/BrickBall.framework.js",
+        codeUrl: buildUrl + "/BrickBall.wasm",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "DefaultCompany",
         productName: "Test",
@@ -66,6 +99,7 @@
         showBanner: unityShowBanner,
       };
 
+      // Kiểm tra thiết bị di động
       if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
         var meta = document.createElement('meta');
         meta.name = 'viewport';
@@ -90,12 +124,16 @@
           fullscreenButton.onclick = () => {
             unityInstance.SetFullscreen(1);
           };
+
+          // Khởi tạo Telegram WebApp sau khi Unity đã tải xong
+          initTelegramWebApp();
         }).catch((message) => {
           alert(message);
         });
       };
 
       document.body.appendChild(script);
+
     </script>
   </body>
 </html>
