@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "450313139566",
+    "project_id": "ibp-goldensea-merge-fruit-lr",
+    "storage_bucket": "ibp-goldensea-merge-fruit-lr.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:450313139566:android:949d504238c698d1e6bd7f",
+        "android_client_info": {
+          "package_name": "com.an.watermelon.mergefruit"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAdiu5y9OSwoWDvuNquXK8PaW2cJwqkXJU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
